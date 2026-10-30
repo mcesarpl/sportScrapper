@@ -1,42 +1,23 @@
-import { useEffect, useState } from 'react'
-
-async function fetchHeadlines() {
-  const response = await fetch('/api/headlines')
-  if (!response.ok) throw new Error(`Backend responded with status ${response.status}`)
-  return response.json()
-}
+import DaySection from './components/DaySection.jsx'
+import { groupByDay } from './group-by-day.js'
+import { useHeadlines } from './hooks/useHeadlines.js'
 
 export default function App() {
-  const [articles, setArticles] = useState(null)
-  const [hasError, setHasError] = useState(false)
-
-  useEffect(() => {
-    fetchHeadlines()
-      .then((data) => setArticles(data.articles))
-      .catch(() => setHasError(true))
-  }, [])
+  const { articles, hasError } = useHeadlines()
+  const isLoading = articles === null && !hasError
 
   return (
     <main>
-      <h1>Today's Sports Headlines</h1>
+      <h1>This Week's Sports Headlines</h1>
 
       {hasError && <p>Couldn't load headlines from CNN.</p>}
-      {!hasError && articles === null && <p>Loading headlines…</p>}
-      {articles?.length === 0 && <p>No sports articles published today yet.</p>}
+      {isLoading && <p>Loading headlines…</p>}
+      {articles?.length === 0 && <p>No sports articles published this week yet.</p>}
 
-      {articles?.length > 0 && (
-        <ul>
-          {articles.map((article) => (
-            <li key={article.url}>
-              <h2>{article.title}</h2>
-              <a href={article.url} target="_blank" rel="noreferrer">
-                {article.url}
-              </a>
-              <time dateTime={article.publishedOn}>{article.publishedOn}</time>
-            </li>
-          ))}
-        </ul>
-      )}
+      {articles &&
+        groupByDay(articles).map((group) => (
+          <DaySection key={group.day} day={group.day} articles={group.articles} />
+        ))}
     </main>
   )
 }

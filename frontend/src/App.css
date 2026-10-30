@@ -7,7 +7,7 @@ body {
 }
 
 main {
-  max-width: 720px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 24px 16px;
   overflow-wrap: anywhere;
@@ -18,24 +18,50 @@ h1 {
   font-size: 28px;
 }
 
+section {
+  margin-bottom: 32px;
+}
+
+h2 {
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #dddddd;
+  font-size: 20px;
+}
+
 ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 24px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-li {
-  padding: 16px 0;
-  border-top: 1px solid #dddddd;
+h3 {
+  margin: 8px 0 4px;
+  font-size: 18px;
 }
 
-h2 {
-  margin: 0 0 4px;
-  font-size: 18px;
+img,
+.image-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  display: grid;
+  place-items: center;
+  color: #555555;
+  background: #eeeeee;
 }
 
 a {
   display: block;
+  font-size: 14px;
 }
 
 time {
