@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import App from './App.jsx'
 
@@ -38,6 +39,12 @@ it('shows page title', async () => {
   render(<App />)
 
   expect(await screen.findByRole('heading', { name: "This Week's Sports Headlines", level: 1 })).toBeTruthy()
+})
+
+it('shows page title in the browser tab', () => {
+  const html = readFileSync('index.html', 'utf8')
+
+  expect(html).toContain("<title>This Week's Sports Headlines</title>")
 })
 
 it('shows one heading per day newest first', async () => {
