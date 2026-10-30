@@ -79,6 +79,25 @@ describe('GET /api/headlines', () => {
     expect(await response.json()).toEqual({ from: '2026-10-24', to: '2026-10-30', articles: [] })
   })
 
+  it('returns articles newest day first keeping page order', async () => {
+    const page = [
+      '/2026/10/27/sport/middle',
+      '/2026/10/30/sport/new-first-on-page',
+      '/2026/10/24/sport/old',
+      '/2026/10/30/sport/new-second-on-page',
+    ]
+    stubCnn(() => new Response(page.map(cardsPage).join('')))
+
+    const { articles } = await (await getHeadlines()).json()
+
+    expect(articles.map((article) => new URL(article.url).pathname)).toEqual([
+      '/2026/10/30/sport/new-first-on-page',
+      '/2026/10/30/sport/new-second-on-page',
+      '/2026/10/27/sport/middle',
+      '/2026/10/24/sport/old',
+    ])
+  })
+
   it('returns 404 for any other route', async () => {
     const response = await realFetch(`${baseUrl}/other`)
 
