@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 9,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "surviving_mutant::test local date logic at month and year boundaries not only at a day boundary",
+      "text": "Test local date logic at month and year boundaries, not only at a day boundary",
+      "signal": "surviving_mutant",
+      "scope": "dates",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "backend/headlines.js:8 (dates)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-002",
+      "key": "surviving_mutant::test a non 2xx rule with both a 4xx and a 5xx status",
+      "text": "Test a non-2xx rule with both a 4xx and a 5xx status",
+      "signal": "surviving_mutant",
+      "scope": "http",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "backend/server.js:10 (http)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-003",
+      "key": "surviving_mutant::include a rejected input that contains a pattern mid string whenever a regex is anchored",
+      "text": "Include a rejected input that contains a pattern mid-string whenever a regex is anchored",
+      "signal": "surviving_mutant",
+      "scope": "scraping",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "backend/headlines.js:5 (scraping)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-004",
+      "key": "ac_gap::parse scraped links with url before matching so absolute and protocol relative forms behave like relative ones",
+      "text": "Parse scraped links with URL before matching so absolute and protocol-relative forms behave like relative ones",
+      "signal": "ac_gap",
+      "scope": "scraping",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "backend/headlines.js:18 (scraping)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-005",
+      "key": "ac_gap::dedupe scraped links on the normalised path not the raw href",
+      "text": "Dedupe scraped links on the normalised path, not the raw href",
+      "signal": "ac_gap",
+      "scope": "scraping",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "backend/headlines.js:23 (scraping)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-006",
+      "key": "ac_gap::set overflow wrap on the page container so all long text wraps not only links",
+      "text": "Set overflow-wrap on the page container so all long text wraps, not only links",
+      "signal": "ac_gap",
+      "scope": "ui",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/App.css:38 (ui)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-007",
+      "key": "spec_precision_gap::make a check s proof filter select the test that proves every word of its criterion",
+      "text": "Make a check's proof filter select the test that proves every word of its criterion",
+      "signal": "spec_precision_gap",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C9 (tests)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-008",
+      "key": "spec_precision_gap::assert both bounds of a timing rule instead of relying on the test timeout",
+      "text": "Assert both bounds of a timing rule instead of relying on the test timeout",
+      "signal": "spec_precision_gap",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "todays-sports-headlines"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C6 (tests)"
+      ],
+      "created": "2026-10-30T19:05:19Z",
+      "last_seen": "2026-10-30T19:05:19Z"
+    }
+  ]
+}
