@@ -1,0 +1,23 @@
+[
+  {
+    "file": "backend/headlines.js",
+    "old": "const month = String(now.getMonth() + 1)",
+    "new": "const month = String(now.getUTCMonth() + 1)",
+    "proof": "cd backend && pnpm exec vitest run headlines.test.js -t \"keeps only cards dated today\"",
+    "label": "localDate month read in UTC instead of the backend timezone (C4)"
+  },
+  {
+    "file": "backend/server.js",
+    "old": "if (!response.ok) throw",
+    "new": "if (response.status >= 500) throw",
+    "proof": "cd backend && pnpm exec vitest run server.test.js -t \"returns 502 when listing fails\"",
+    "label": "only 5xx treated as a failed listing, 4xx passes through (C6)"
+  },
+  {
+    "file": "backend/headlines.js",
+    "old": "const ARTICLE_PATH = /^\\/(\\d{4})",
+    "new": "const ARTICLE_PATH = /\\/(\\d{4})",
+    "proof": "cd backend && pnpm exec vitest run headlines.test.js -t \"selects articles and live blogs only\"",
+    "label": "article path no longer anchored to the start of the href (C3)"
+  }
+]

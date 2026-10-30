@@ -104,8 +104,8 @@ Every ambiguity is resolved or recorded here - nothing is left silently unclear.
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----------- | ------ | ------- |
-| HEAD-01 | P1: Get today's articles from the backend | Execute | Implementing |
-| HEAD-02 | P1: See today's articles on the page | Execute | Implementing |
+| HEAD-01 | P1: Get today's articles from the backend | Execute | Verified |
+| HEAD-02 | P1: See today's articles on the page | Execute | Verified |
 
 **Coverage:** 2 total, 2 mapped to checks, 0 unmapped.
 
@@ -175,4 +175,5 @@ Proof: walk - at both widths the page's scroll width equals its window width
 ## Handoff
 
 **Settled mid-build:** none
-**Walked:** Ran the backend with `pnpm --dir backend start` and the frontend with `pnpm --dir frontend dev` (it landed on port 5174 because 5173 was taken), on 2026-10-30 against live CNN. HEAD-01: `curl localhost:3333/api/headlines` returned `date` 2026-10-30 and 2 articles, no video links. HEAD-02: the page showed the same 2 titles, URLs and dates. At 1280px and 375px, `scrollWidth` equalled `innerWidth`, and long URLs wrapped. With the backend stopped, the page showed `Couldn't load headlines from CNN.`
+**Dispatched:** Verifier at HEAD af3a27b, returned
+**Walked:** Ran the backend with `pnpm --dir backend start` and the frontend with `pnpm --dir frontend dev` (it landed on port 5174 because 5173 was taken), on 2026-10-30 against live CNN. HEAD-01: `curl localhost:3333/api/headlines` returned `date` 2026-10-30 and 2 articles, no video links. HEAD-02: the page showed the same 2 titles, URLs and dates. At 1280px and 375px, `scrollWidth` equalled `innerWidth`, and long URLs wrapped. With the backend stopped, the page showed `Couldn't load headlines from CNN.` After the Verifier's fixes, a 125-character unbroken title set on the running page wrapped at both widths: `scrollWidth` equalled `innerWidth` at 1280px and 375px.
