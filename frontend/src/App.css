@@ -10,6 +10,7 @@ main {
   max-width: 720px;
   margin: 0 auto;
   padding: 24px 16px;
+  overflow-wrap: anywhere;
 }
 
 h1 {
@@ -35,7 +36,6 @@ h2 {
 
 a {
   display: block;
-  overflow-wrap: anywhere;
 }
 
 time {

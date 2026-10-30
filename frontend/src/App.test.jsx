@@ -28,7 +28,7 @@ it('shows title link and date', async () => {
   expect(fetch).toHaveBeenCalledWith('/api/headlines')
 })
 
-it('shows every returned article', async () => {
+it('shows title link and date of every returned article', async () => {
   const second = { ...article, title: 'Second story', url: 'https://edition.cnn.com/second' }
   stubResponse({ date: '2026-10-30', articles: [article, second] })
 
