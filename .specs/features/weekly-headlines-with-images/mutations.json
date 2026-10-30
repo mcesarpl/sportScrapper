@@ -1,0 +1,23 @@
+[
+  {
+    "file": "backend/headlines.js",
+    "old": "articles: sortNewestFirst(filterToWeek(articles, week))",
+    "new": "articles: sortNewestFirst(filterToWeek(articles, week)).toReversed()",
+    "proof": "cd backend && pnpm exec vitest run",
+    "label": "endpoint returns the sorted list reversed: oldest day first, CNN order flipped within a day (C6)"
+  },
+  {
+    "file": "frontend/src/group-by-day.js",
+    "old": "articles: groups[day] }",
+    "new": "articles: groups[day].toReversed() }",
+    "proof": "cd frontend && pnpm exec vitest run",
+    "label": "page reverses the articles within a day, losing CNN's order (order inside a day, C8)"
+  },
+  {
+    "file": "frontend/src/format-day.js",
+    "old": "new Date(`${day}T00:00:00`)",
+    "new": "new Date(day)",
+    "proof": "cd frontend && TZ=UTC pnpm exec vitest run src/App.test.jsx",
+    "label": "day heading parsed as UTC, one day early west of UTC; suite run with TZ=UTC (C7)"
+  }
+]

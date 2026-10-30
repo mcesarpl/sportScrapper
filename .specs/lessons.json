@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 9,
+  "next_id": 15,
   "lessons": [
     {
       "id": "L-001",
@@ -148,6 +148,114 @@
       ],
       "created": "2026-10-30T19:05:19Z",
       "last_seen": "2026-10-30T19:05:19Z"
+    },
+    {
+      "id": "L-009",
+      "key": "surviving_mutant::prove an ordering rule at the outermost layer that applies it not only in the helper",
+      "text": "Prove an ordering rule at the outermost layer that applies it, not only in the helper",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "weekly-headlines-with-images"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "backend/headlines.js:18 (tests)"
+      ],
+      "created": "2026-10-30T19:25:58Z",
+      "last_seen": "2026-10-30T19:25:58Z"
+    },
+    {
+      "id": "L-010",
+      "key": "surviving_mutant::assert order inside a group not only the order of the groups",
+      "text": "Assert order inside a group, not only the order of the groups",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "weekly-headlines-with-images"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/group-by-day.js:4 (tests)"
+      ],
+      "created": "2026-10-30T19:25:58Z",
+      "last_seen": "2026-10-30T19:25:58Z"
+    },
+    {
+      "id": "L-011",
+      "key": "surviving_mutant::pin a timezone west of utc in tests that format dates",
+      "text": "Pin a timezone west of UTC in tests that format dates",
+      "signal": "surviving_mutant",
+      "scope": "dates",
+      "status": "candidate",
+      "features": [
+        "weekly-headlines-with-images"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/format-day.js:3 (dates)"
+      ],
+      "created": "2026-10-30T19:25:58Z",
+      "last_seen": "2026-10-30T19:25:58Z"
+    },
+    {
+      "id": "L-012",
+      "key": "spec_precision_gap::give a sort test input that no fixed order would satisfy",
+      "text": "Give a sort test input that no fixed order would satisfy",
+      "signal": "spec_precision_gap",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "weekly-headlines-with-images"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/App.test.jsx:51 (tests)"
+      ],
+      "created": "2026-10-30T19:25:58Z",
+      "last_seen": "2026-10-30T19:25:58Z"
+    },
+    {
+      "id": "L-013",
+      "key": "spec_precision_gap::state every exemption wherever a rule is claimed",
+      "text": "State every exemption wherever a rule is claimed",
+      "signal": "spec_precision_gap",
+      "scope": "lint",
+      "status": "candidate",
+      "features": [
+        "weekly-headlines-with-images"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "backend/eslint.config.js:15 (lint)"
+      ],
+      "created": "2026-10-30T19:25:58Z",
+      "last_seen": "2026-10-30T19:25:58Z"
+    },
+    {
+      "id": "L-014",
+      "key": "ac_gap::name a module after its one job and move anything else out",
+      "text": "Name a module after its one job and move anything else out",
+      "signal": "ac_gap",
+      "scope": "structure",
+      "status": "candidate",
+      "features": [
+        "weekly-headlines-with-images"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/group-by-day.js:7 (structure)"
+      ],
+      "created": "2026-10-30T19:25:58Z",
+      "last_seen": "2026-10-30T19:25:58Z"
     }
   ]
 }

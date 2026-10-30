@@ -62,6 +62,42 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: C6 (tests)
 - last seen: 2026-10-30T19:05:19Z
 
+### L-009 - Prove an ordering rule at the outermost layer that applies it, not only in the helper
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: weekly-headlines-with-images
+- evidence: backend/headlines.js:18 (tests)
+- last seen: 2026-10-30T19:25:58Z
+
+### L-010 - Assert order inside a group, not only the order of the groups
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: weekly-headlines-with-images
+- evidence: frontend/src/group-by-day.js:4 (tests)
+- last seen: 2026-10-30T19:25:58Z
+
+### L-011 - Pin a timezone west of UTC in tests that format dates
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `dates` · harmful: 0
+- features: weekly-headlines-with-images
+- evidence: frontend/src/format-day.js:3 (dates)
+- last seen: 2026-10-30T19:25:58Z
+
+### L-012 - Give a sort test input that no fixed order would satisfy
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: weekly-headlines-with-images
+- evidence: frontend/src/App.test.jsx:51 (tests)
+- last seen: 2026-10-30T19:25:58Z
+
+### L-013 - State every exemption wherever a rule is claimed
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `lint` · harmful: 0
+- features: weekly-headlines-with-images
+- evidence: backend/eslint.config.js:15 (lint)
+- last seen: 2026-10-30T19:25:58Z
+
+### L-014 - Name a module after its one job and move anything else out
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `structure` · harmful: 0
+- features: weekly-headlines-with-images
+- evidence: frontend/src/group-by-day.js:7 (structure)
+- last seen: 2026-10-30T19:25:58Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

@@ -105,6 +105,7 @@ Every ambiguity is resolved or recorded here - nothing is left silently unclear.
 1. WHEN `pnpm lint` runs in `backend` or `frontend` THEN ESLint SHALL fail on any function over 25 lines, any function with complexity over 8, and any unused variable.
 2. WHEN `pnpm test:coverage` runs in `backend` or `frontend` THEN Vitest SHALL fail if line or branch coverage is below 90%.
 3. The project SHALL keep HTTP handling, scraping, date logic, data fetching, grouping and rendering in separate modules.
+4. WHERE a file is a test file ESLint SHALL skip the 25-line function limit, and the README SHALL state this.
 
 **Independent Test**: Run both commands in both apps and see them pass.
 
@@ -139,10 +140,10 @@ Every ambiguity is resolved or recorded here - nothing is left silently unclear.
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----------- | ------ | ------- |
-| WEEK-01 | P1: Get the week's articles with images | Execute | Implementing |
-| WEEK-02 | P1: See the week grouped by day, with images | Execute | Implementing |
-| WEEK-03 | P1: Keep the code clean and tested | Execute | Implementing |
-| WEEK-04 | P1: Install and launch from the README | Execute | Implementing |
+| WEEK-01 | P1: Get the week's articles with images | Execute | Verified |
+| WEEK-02 | P1: See the week grouped by day, with images | Execute | Verified |
+| WEEK-03 | P1: Keep the code clean and tested | Execute | Verified |
+| WEEK-04 | P1: Install and launch from the README | Execute | Verified |
 
 **Coverage:** 4 total, 4 mapped to checks, 0 unmapped.
 
@@ -167,6 +168,15 @@ Every ambiguity is resolved or recorded here - nothing is left silently unclear.
 
 **Mutations**: 3
 **Build**: `pnpm --dir backend lint; pnpm --dir backend test:coverage; pnpm --dir frontend lint; pnpm --dir frontend test:coverage; pnpm --dir frontend build`
+
+**C19** - The endpoint returns articles newest day first, in CNN's order within a day (WEEK-01, AC 5)
+Proof: `cd backend && pnpm exec vitest run server.test.js -t "returns articles newest day first keeping page order"`
+
+**C20** - The page keeps CNN's order within a day (WEEK-02, AC 2)
+Proof: `cd frontend && pnpm exec vitest run src/App.test.jsx -t "keeps page order within a day"`
+
+**C21** - Test files skip the 25-line limit, and the README says so (WEEK-03, AC 4)
+Proof: walk - `eslint.config.js` in both apps turns the rule off for test files, and the README's Test and lint section states it
 
 **C1** - `GET /api/headlines` returns 200 with `from`, `to` and `articles` (WEEK-01, AC 1)
 Proof: `cd backend && pnpm exec vitest run server.test.js -t "returns from to and articles"`
@@ -227,4 +237,5 @@ Proof: walk - in an empty folder, the README's steps showed headlines at the add
 ## Handoff
 
 **Settled mid-build:** none
-**Walked:** On 2026-10-30, against live CNN, in a fresh `git clone`, using only the README's commands. `pnpm --dir backend install` and `pnpm --dir frontend install` succeeded, then `pnpm --dir backend start` and `pnpm --dir frontend dev`. Vite printed port 5174 because 5173 was taken, as the README says it can. WEEK-01: `curl localhost:3333/api/headlines` returned `from` 2026-10-24, `to` 2026-10-30 and 20 articles across 7 days, each with an `imageUrl`, no video links. WEEK-02: the page showed 7 day headings newest first, 2, 3, 4, 3, 4, 1 and 3 articles under them, and all 20 images loaded. At 1280px `scrollWidth` was 1265 with a 15px scrollbar, and at 375px it was 375, so nothing scrolled sideways. The walk found the browser tab title still reading the old name; fixed in 1e1ae5d with a test. WEEK-03: one file each breaking the line, complexity and unused-variable rules made `eslint` report all three in both apps with exit 1, and the real code exits 0. Running a single test with `--coverage` failed both apps below 90% with exit 1, and the full suites pass at 98% lines and 96% branches in the backend, 100% in the frontend. The README's project structure matches the files, one responsibility each. WEEK-04: the README states what the app does, prerequisites, install, launch, test and lint commands, project structure and known limits.
+**Dispatched:** Verifier at HEAD adbf5fa, returned
+**Walked:** On 2026-10-30, against live CNN, in a fresh `git clone`, using only the README's commands. `pnpm --dir backend install` and `pnpm --dir frontend install` succeeded, then `pnpm --dir backend start` and `pnpm --dir frontend dev`. Vite printed port 5174 because 5173 was taken, as the README says it can. WEEK-01: `curl localhost:3333/api/headlines` returned `from` 2026-10-24, `to` 2026-10-30 and 20 articles across 7 days, each with an `imageUrl`, no video links. WEEK-02: the page showed 7 day headings newest first, 2, 3, 4, 3, 4, 1 and 3 articles under them, and all 20 images loaded. At 1280px `scrollWidth` was 1265 with a 15px scrollbar, and at 375px it was 375, so nothing scrolled sideways. The walk found the browser tab title still reading the old name; fixed in 1e1ae5d with a test. WEEK-03: one file each breaking the line, complexity and unused-variable rules made `eslint` report all three in both apps with exit 1, and the real code exits 0. Running a single test with `--coverage` failed both apps below 90% with exit 1, and the full suites pass at 98% lines and 96% branches in the backend, 100% in the frontend. The README's project structure matches the files, one responsibility each. After the Verifier's fixes, `eslint.config.js` in both apps turns the 25-line rule off for test files, and the README's Test and lint section states it. WEEK-04: the README states what the app does, prerequisites, install, launch, test and lint commands, project structure and known limits.
