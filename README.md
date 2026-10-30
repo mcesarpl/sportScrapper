@@ -28,8 +28,8 @@ pnpm --version
 Clone the repository, enter its folder, and install each app's dependencies:
 
 ```bash
-git clone <repository-url> SportScrapper
-cd SportScrapper
+git clone https://github.com/mcesarpl/sportScrapper.git
+cd sportScrapper
 pnpm --dir backend install
 pnpm --dir frontend install
 ```
@@ -73,8 +73,8 @@ Run these from the project folder.
 Tests use [Vitest](https://vitest.dev) and never call CNN, so they pass offline. One backend test
 waits 10 seconds on purpose to prove the request timeout.
 
-ESLint fails on any function over 25 lines, any function with complexity over 8, and any unused
-variable.
+ESLint fails on any function with complexity over 8 and any unused variable. It also fails on any
+function over 25 lines, except in test files, where `describe` blocks are long by nature.
 
 ## Project structure
 
@@ -87,7 +87,8 @@ backend/
 frontend/src/
   App.jsx                         The page and its loading, empty and error messages
   hooks/useHeadlines.js           Requests the headlines from the backend
-  group-by-day.js                 Groups articles by day and formats the day headings
+  group-by-day.js                 Groups articles by day, newest day first
+  format-day.js                   Formats a date as a day heading
   components/DaySection.jsx       One day's heading and its articles
   components/ArticleCard.jsx      One headline
   components/ArticleImage.jsx     The image, or a placeholder when there is none
