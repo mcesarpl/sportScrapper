@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio'
 
 const CNN_ORIGIN = 'https://edition.cnn.com'
+const CNN_HOSTS = ['edition.cnn.com', 'www.cnn.com']
 const ARTICLE_PATH = /^\/(\d{4})\/(\d{2})\/(\d{2})\/sport\//
 
 export function localDate(now = new Date()) {
@@ -14,7 +15,11 @@ export function parseCards(html) {
   const cards = new Map()
 
   $('a[href]').each((_, link) => {
-    const path = $(link).attr('href')
+    const href = URL.parse($(link).attr('href'), CNN_ORIGIN)
+    if (!CNN_HOSTS.includes(href?.hostname)) return
+
+    // The path alone identifies an article, whatever query or fragment the link carries.
+    const path = href.pathname.replace(/\/$/, '')
     const match = path.match(ARTICLE_PATH)
     if (!match || path.includes('/video/') || path.includes('/gallery/')) return
 

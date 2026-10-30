@@ -34,9 +34,26 @@ describe('parseCards', () => {
       card('/2026/10/30/sport/gallery/some-photos', 'A gallery'),
       card('/2026/10/30/politics/not-sport', 'Another section'),
       card('/sport/football', 'A section page'),
+      card('/style/2026/10/30/sport/nested-path', 'A path that only contains the pattern'),
+      card('https://example.com/2026/10/30/sport/another-site', 'Another site'),
     ].join('')
 
     expect(parseCards(html).map((article) => article.title)).toEqual(['An article', 'A live blog'])
+  })
+
+  it('selects articles and live blogs only from absolute and protocol-relative links', () => {
+    const html = [
+      card('https://edition.cnn.com/2026/10/30/sport/absolute', 'Absolute'),
+      card('//edition.cnn.com/2026/10/30/sport/protocol-relative', 'Protocol relative'),
+      card('https://www.cnn.com/2026/10/30/sport/www-host', 'Www host'),
+      card('https://edition.cnn.com/2026/10/30/sport/video/a-clip', 'A video'),
+    ].join('')
+
+    expect(parseCards(html).map((article) => article.url)).toEqual([
+      'https://edition.cnn.com/2026/10/30/sport/absolute',
+      'https://edition.cnn.com/2026/10/30/sport/protocol-relative',
+      'https://edition.cnn.com/2026/10/30/sport/www-host',
+    ])
   })
 
   it('returns duplicate links once', () => {
@@ -46,6 +63,23 @@ describe('parseCards', () => {
     ].join('')
 
     expect(parseCards(html)).toHaveLength(1)
+  })
+
+  it('returns duplicate links once when only the query, fragment or trailing slash differs', () => {
+    const html = [
+      card('/2026/10/30/sport/an-article', 'First card'),
+      card('/2026/10/30/sport/an-article?iid=cnn_buildContentRecirc', 'Query'),
+      card('/2026/10/30/sport/an-article#comments', 'Fragment'),
+      card('/2026/10/30/sport/an-article/', 'Trailing slash'),
+    ].join('')
+
+    expect(parseCards(html)).toEqual([
+      {
+        title: 'First card',
+        url: 'https://edition.cnn.com/2026/10/30/sport/an-article',
+        publishedOn: '2026-10-30',
+      },
+    ])
   })
 })
 
@@ -67,5 +101,10 @@ describe('localDate', () => {
   it('keeps only cards dated today in the backend timezone', () => {
     // 01:30 UTC on the 31st is still 22:30 on the 30th in Sao Paulo.
     expect(localDate(new Date('2026-10-31T01:30:00Z'))).toBe('2026-10-30')
+  })
+
+  it('keeps only cards dated today across a month and year end in the backend timezone', () => {
+    expect(localDate(new Date('2026-11-01T01:30:00Z'))).toBe('2026-10-31')
+    expect(localDate(new Date('2027-01-01T01:30:00Z'))).toBe('2026-12-31')
   })
 })

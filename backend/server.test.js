@@ -101,6 +101,15 @@ describe('GET /api/headlines', () => {
     expect(console.error).toHaveBeenCalled()
   })
 
+  it('returns 502 when listing fails with a 404 status', async () => {
+    stubCnn(() => new Response(cardsPage('/2026/10/30/sport/an-article'), { status: 404 }))
+
+    const response = await getHeadlines()
+
+    expect(response.status).toBe(502)
+    expect(await response.json()).toEqual({ error: 'Could not load CNN Sport' })
+  })
+
   it('returns 502 when listing fails by taking longer than 10 seconds', { timeout: 12000 }, async () => {
     stubCnn(
       (options) =>
@@ -114,7 +123,9 @@ describe('GET /api/headlines', () => {
 
     expect(response.status).toBe(502)
     expect(await response.json()).toEqual({ error: 'Could not load CNN Sport' })
-    expect(performance.now() - startedAt).toBeGreaterThan(9500)
+    const elapsed = performance.now() - startedAt
+    expect(elapsed).toBeGreaterThanOrEqual(9900)
+    expect(elapsed).toBeLessThan(10500)
     expect(console.error).toHaveBeenCalled()
   })
 })
