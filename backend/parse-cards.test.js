@@ -1,10 +1,12 @@
-import { beforeAll, describe, expect, it } from 'vitest'
-import { localDate, parseCards, todaysArticles } from './headlines.js'
+import { describe, expect, it } from 'vitest'
+import { parseCards } from './parse-cards.js'
 
-function card(href, headline) {
+const IMAGE_URL = 'https://media.cnn.com/api/v1/images/stellar/prod/photo.jpg?c=16x9&q=h_144,w_256,c_fill'
+
+function card(href, headline, image = `<img src="${IMAGE_URL}" alt="A photo" />`) {
   return `
     <li class="card container__item" data-open-link="${href}">
-      <a href="${href}" class="container__link"><div class="image"></div></a>
+      <a href="${href}" class="container__link"><div class="image">${image}</div></a>
       <a href="${href}" class="container__link">
         <div class="container__headline">
           <span class="container__headline-text" data-editable="headline">${headline}</span>
@@ -14,7 +16,7 @@ function card(href, headline) {
 }
 
 describe('parseCards', () => {
-  it('returns decoded title absolute url and date', () => {
+  it('returns every article field', () => {
     const html = card('/2026/10/30/sport/packers-watson', 'Packers&#x2019; Watson &amp; the &quot;return&quot;')
 
     expect(parseCards(html)).toEqual([
@@ -22,7 +24,33 @@ describe('parseCards', () => {
         title: 'Packers’ Watson & the "return"',
         url: 'https://edition.cnn.com/2026/10/30/sport/packers-watson',
         publishedOn: '2026-10-30',
+        imageUrl: IMAGE_URL,
+        imageAlt: 'A photo',
       },
+    ])
+  })
+
+  it('returns null image when card has none', () => {
+    const html = card('/2026/10/30/sport/an-article', 'No picture', '')
+
+    expect(parseCards(html)[0]).toMatchObject({ imageUrl: null, imageAlt: '' })
+  })
+
+  it('returns an empty alt when the image has none', () => {
+    const html = card('/2026/10/30/sport/an-article', 'No alt', `<img src="${IMAGE_URL}" />`)
+
+    expect(parseCards(html)[0]).toMatchObject({ imageUrl: IMAGE_URL, imageAlt: '' })
+  })
+
+  it('takes each image from its own card', () => {
+    const html = [
+      card('/2026/10/30/sport/first', 'First', '<img src="https://media.cnn.com/first.jpg" alt="First" />'),
+      card('/2026/10/30/sport/second', 'Second', '<img src="https://media.cnn.com/second.jpg" alt="Second" />'),
+    ].join('')
+
+    expect(parseCards(html).map((article) => article.imageUrl)).toEqual([
+      'https://media.cnn.com/first.jpg',
+      'https://media.cnn.com/second.jpg',
     ])
   })
 
@@ -73,38 +101,16 @@ describe('parseCards', () => {
       card('/2026/10/30/sport/an-article/', 'Trailing slash'),
     ].join('')
 
-    expect(parseCards(html)).toEqual([
-      {
-        title: 'First card',
-        url: 'https://edition.cnn.com/2026/10/30/sport/an-article',
-        publishedOn: '2026-10-30',
-      },
-    ])
-  })
-})
+    const articles = parseCards(html)
 
-describe('todaysArticles', () => {
-  const yesterday = { title: 'Old', url: 'old', publishedOn: '2026-10-29' }
-  const today = { title: 'New', url: 'new', publishedOn: '2026-10-30' }
-  const tomorrow = { title: 'Next', url: 'next', publishedOn: '2026-10-31' }
-
-  it('keeps only cards dated today', () => {
-    expect(todaysArticles([yesterday, today, tomorrow], '2026-10-30')).toEqual([today])
-  })
-})
-
-describe('localDate', () => {
-  beforeAll(() => {
-    process.env.TZ = 'America/Sao_Paulo'
+    expect(articles).toHaveLength(1)
+    expect(articles[0]).toMatchObject({
+      title: 'First card',
+      url: 'https://edition.cnn.com/2026/10/30/sport/an-article',
+    })
   })
 
-  it('keeps only cards dated today in the backend timezone', () => {
-    // 01:30 UTC on the 31st is still 22:30 on the 30th in Sao Paulo.
-    expect(localDate(new Date('2026-10-31T01:30:00Z'))).toBe('2026-10-30')
-  })
-
-  it('keeps only cards dated today across a month and year end in the backend timezone', () => {
-    expect(localDate(new Date('2026-11-01T01:30:00Z'))).toBe('2026-10-31')
-    expect(localDate(new Date('2027-01-01T01:30:00Z'))).toBe('2026-12-31')
+  it('ignores links that are not valid addresses', () => {
+    expect(parseCards(card('https://', 'Broken link'))).toEqual([])
   })
 })

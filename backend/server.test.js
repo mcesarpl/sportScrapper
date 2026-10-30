@@ -16,7 +16,11 @@ function stubCnn(respond) {
 }
 
 function cardsPage(path) {
-  return `<a href="${path}"><span class="container__headline-text">A headline</span></a>`
+  return `
+    <li class="card">
+      <a href="${path}"><img src="https://media.cnn.com/photo.jpg" alt="A photo" /></a>
+      <a href="${path}"><span class="container__headline-text">A headline</span></a>
+    </li>`
 }
 
 function getHeadlines() {
@@ -44,7 +48,7 @@ afterEach(() => {
 })
 
 describe('GET /api/headlines', () => {
-  it('returns date and articles', async () => {
+  it('returns from to and articles', async () => {
     stubCnn(() => new Response(cardsPage('/2026/10/30/sport/an-article')))
 
     const response = await getHeadlines()
@@ -52,24 +56,33 @@ describe('GET /api/headlines', () => {
     expect(response.status).toBe(200)
     expect(cnnRequests).toEqual([CNN_SPORT_URL])
     expect(await response.json()).toEqual({
-      date: '2026-10-30',
+      from: '2026-10-24',
+      to: '2026-10-30',
       articles: [
         {
           title: 'A headline',
           url: 'https://edition.cnn.com/2026/10/30/sport/an-article',
           publishedOn: '2026-10-30',
+          imageUrl: 'https://media.cnn.com/photo.jpg',
+          imageAlt: 'A photo',
         },
       ],
     })
   })
 
-  it('returns empty list when nothing is dated today', async () => {
-    stubCnn(() => new Response(cardsPage('/2026/10/29/sport/an-article')))
+  it('returns empty list when nothing is dated in the week', async () => {
+    stubCnn(() => new Response(cardsPage('/2026/10/23/sport/an-article')))
 
     const response = await getHeadlines()
 
     expect(response.status).toBe(200)
-    expect(await response.json()).toEqual({ date: '2026-10-30', articles: [] })
+    expect(await response.json()).toEqual({ from: '2026-10-24', to: '2026-10-30', articles: [] })
+  })
+
+  it('returns 404 for any other route', async () => {
+    const response = await realFetch(`${baseUrl}/other`)
+
+    expect(response.status).toBe(404)
   })
 
   it('returns 502 when listing has no cards', async () => {
