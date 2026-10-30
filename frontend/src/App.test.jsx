@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import process from 'node:process'
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import App from './App.jsx'
 
@@ -29,6 +30,11 @@ function daySection(heading) {
   return within(screen.getByRole('heading', { name: heading, level: 2 }).closest('section'))
 }
 
+beforeAll(() => {
+  // West of UTC, so reading a bare date as UTC would show the previous day.
+  process.env.TZ = 'America/Sao_Paulo'
+})
+
 afterEach(() => {
   vi.unstubAllGlobals()
 })
@@ -48,13 +54,29 @@ it('shows page title in the browser tab', () => {
 })
 
 it('shows one heading per day newest first', async () => {
-  stubArticles([olderArticle, article, { ...article, url: 'https://edition.cnn.com/same-day' }])
+  const middleArticle = { ...article, url: 'https://edition.cnn.com/middle', publishedOn: '2026-10-29' }
+  stubArticles([middleArticle, article, olderArticle, { ...article, url: 'https://edition.cnn.com/same-day' }])
 
   render(<App />)
 
   await screen.findAllByRole('heading', { level: 2 })
   const headings = screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent)
-  expect(headings).toEqual(['Friday, October 30, 2026', 'Wednesday, October 28, 2026'])
+  expect(headings).toEqual([
+    'Friday, October 30, 2026',
+    'Thursday, October 29, 2026',
+    'Wednesday, October 28, 2026',
+  ])
+})
+
+it('keeps page order within a day', async () => {
+  const secondOnPage = { ...article, title: 'Second on page', url: 'https://edition.cnn.com/second' }
+  stubArticles([article, secondOnPage])
+
+  render(<App />)
+
+  await screen.findByText(secondOnPage.title)
+  const titles = screen.getAllByRole('heading', { level: 3 }).map((heading) => heading.textContent)
+  expect(titles).toEqual([article.title, secondOnPage.title])
 })
 
 it('shows each article under its day', async () => {

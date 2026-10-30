@@ -1,4 +1,4 @@
-import { formatDay } from '../group-by-day.js'
+import { formatDay } from '../format-day.js'
 import ArticleCard from './ArticleCard.jsx'
 
 export default function DaySection({ day, articles }) {
