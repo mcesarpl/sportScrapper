@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: inline - no new architecture; decisions are in `.specs/features/docker-and-redesign/spec.md`
-**Status**: Approved
+**Status**: Done
 **Approved**: 2026-10-31 - user: "Approve both, start"
 **Mutations**: 3
 **Build**: `pnpm --dir backend lint; pnpm --dir backend test:coverage; pnpm --dir frontend lint; pnpm --dir frontend test:coverage; pnpm --dir frontend build; docker compose config --quiet`
@@ -318,7 +318,9 @@ Proof: walk - after `docker compose stop backend`, a reload showed `Couldn't loa
 The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** none
-**Dispatched:** Phase 1 worker (T1-T5), returned and accepted by the manager at cca6dfa after 2 rounds of CSS fixes; Phase 2 worker (T6-T9)
+**Dispatched:** Phase 1 worker (T1-T5), returned and accepted at cca6dfa after 2 rounds of CSS fixes; Phase 2 worker (T6-T9), returned and accepted at 7a5443d after 1 fix. Verification by the manager, who wrote no feature code.
+
+**Walked:** On 2026-10-31 against live CNN, by the manager, in a fresh `git clone` with the dev servers stopped. `docker compose up --build` with this machine's normal Docker config hung in `docker-credential-desktop get` while resolving `nginx:alpine` and was stopped after 5 minutes. This is the Docker Desktop credential helper, not the project. The rest of the walk used `DOCKER_CONFIG` pointing at a config without `credsStore`, so images were pulled anonymously; everything else was unchanged. DOCK-01: the build finished in 9s, `localhost:8080` returned 200, `/api/headlines` through 8080 returned 17 articles with 17 images, `curl localhost:3333` reached nothing, and the backend runs as user `node`. `date` in the container showed -03 by default and WET with `TZ=Europe/Lisbon`. After `docker compose stop backend`, a reload showed `Couldn't load headlines from CNN.` with no pill. The API returned 502 in 3s, after one request right after the stop ran past 10s. Stopping took 11s, fixed in 7a5443d. PAGE-01: top bar, pill, title, cursor, description and button showed at 8080. `See headlines` set `#headlines` and, with animation off because the pane was hidden (0 frames per second), moved the page 421px with the first day heading 24px from the top. On the dev server it scrolled to the same place with the animation running. PAGE-02: compared by eye with `captures/style-reference.webp`: same charcoal, crimson glow confined to the top 600px, large tight title, pink cursor, pill and top bar. Contrast from computed colours: lowest pair 4.99:1 (button), then link 5.8, cursor and GitHub link 6.5, date 6.99, pill 7.18, description 7.84, title 13.4, headings 15.01. At 1280px `scrollWidth` 1265 with a 15px scrollbar and at 375px 375, and the top bar lines up with the content at both. All 17 images loaded and Inter loaded. DOCK-02: the README's Docker section comes first with prerequisite, command, address, stop and `TZ`; `Run without Docker` holds the install and launch steps; the project structure lists every new file.
 
 ---
 

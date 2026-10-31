@@ -143,10 +143,10 @@ Every ambiguity is resolved or recorded here - nothing is left silently unclear.
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----------- | ------ | ------- |
-| PAGE-01 | P1: See the top of the page | Execute | Done |
-| PAGE-02 | P1: Give the page the new look | Execute | Done |
-| DOCK-01 | P1: Run everything with one command | Tasks | Pending |
-| DOCK-02 | P1: Install from the README with Docker | Tasks | Pending |
+| PAGE-01 | P1: See the top of the page | Execute | Verified |
+| PAGE-02 | P1: Give the page the new look | Execute | Verified |
+| DOCK-01 | P1: Run everything with one command | Execute | Verified |
+| DOCK-02 | P1: Install from the README with Docker | Execute | Verified |
 
 **Coverage:** 4 total, 4 mapped to checks, 0 unmapped.
 

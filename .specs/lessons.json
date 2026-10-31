@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 15,
+  "next_id": 20,
   "lessons": [
     {
       "id": "L-001",
@@ -256,6 +256,96 @@
       ],
       "created": "2026-10-30T19:25:58Z",
       "last_seen": "2026-10-30T19:25:58Z"
+    },
+    {
+      "id": "L-015",
+      "key": "ac_gap::size a page glow in pixels rather than on the body so it stays at the top of long pages",
+      "text": "Size a page glow in pixels rather than on the body so it stays at the top of long pages",
+      "signal": "ac_gap",
+      "scope": "ui",
+      "status": "candidate",
+      "features": [
+        "docker-and-redesign"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/App.css:26 (ui)"
+      ],
+      "created": "2026-10-31T14:48:19Z",
+      "last_seen": "2026-10-31T14:48:19Z"
+    },
+    {
+      "id": "L-016",
+      "key": "spec_precision_gap::measure contrast for decorative text too when a rule says every pair",
+      "text": "Measure contrast for decorative text too when a rule says every pair",
+      "signal": "spec_precision_gap",
+      "scope": "ui",
+      "status": "candidate",
+      "features": [
+        "docker-and-redesign"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/App.css:79 (ui)"
+      ],
+      "created": "2026-10-31T14:48:19Z",
+      "last_seen": "2026-10-31T14:48:19Z"
+    },
+    {
+      "id": "L-017",
+      "key": "ac_gap::give a bar and the content below it the same box model so their edges line up",
+      "text": "Give a bar and the content below it the same box model so their edges line up",
+      "signal": "ac_gap",
+      "scope": "ui",
+      "status": "candidate",
+      "features": [
+        "docker-and-redesign"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/App.css:30 (ui)"
+      ],
+      "created": "2026-10-31T14:48:19Z",
+      "last_seen": "2026-10-31T14:48:19Z"
+    },
+    {
+      "id": "L-018",
+      "key": "ac_gap::add scroll margin to anchor targets",
+      "text": "Add scroll margin to anchor targets",
+      "signal": "ac_gap",
+      "scope": "ui",
+      "status": "candidate",
+      "features": [
+        "docker-and-redesign"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "frontend/src/App.css:55 (ui)"
+      ],
+      "created": "2026-10-31T14:48:19Z",
+      "last_seen": "2026-10-31T14:48:19Z"
+    },
+    {
+      "id": "L-019",
+      "key": "ac_gap::set init true for node containers so they stop on sigterm",
+      "text": "Set init true for Node containers so they stop on SIGTERM",
+      "signal": "ac_gap",
+      "scope": "docker",
+      "status": "candidate",
+      "features": [
+        "docker-and-redesign"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "docker-compose.yml:2 (docker)"
+      ],
+      "created": "2026-10-31T14:48:19Z",
+      "last_seen": "2026-10-31T14:48:19Z"
     }
   ]
 }

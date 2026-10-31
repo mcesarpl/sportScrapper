@@ -1,0 +1,23 @@
+[
+  {
+    "file": "frontend/src/format-range.js",
+    "old": "if (startYear === endYear) {",
+    "new": "if (startYear !== endYear) {",
+    "proof": "cd frontend && pnpm exec vitest run src/format-range.test.js",
+    "label": "range uses the wrong format for the year (C5, C6)"
+  },
+  {
+    "file": "frontend/src/hooks/useHeadlines.js",
+    "old": "setRange({ from: data.from, to: data.to })",
+    "new": "setRange({ from: data.to, to: data.from })",
+    "proof": "cd frontend && pnpm exec vitest run src/App.test.jsx -t \"shows date pill\"",
+    "label": "pill swaps the start and end dates (C4)"
+  },
+  {
+    "file": "frontend/src/format-range.js",
+    "old": "return new Date(`${day}T00:00:00`)",
+    "new": "return new Date(day)",
+    "proof": "cd frontend && pnpm exec vitest run src/format-range.test.js",
+    "label": "range dates read as UTC, one day early west of UTC (C5)"
+  }
+]

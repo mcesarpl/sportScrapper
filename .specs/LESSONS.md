@@ -98,6 +98,36 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: frontend/src/group-by-day.js:7 (structure)
 - last seen: 2026-10-30T19:25:58Z
 
+### L-015 - Size a page glow in pixels rather than on the body so it stays at the top of long pages
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `ui` · harmful: 0
+- features: docker-and-redesign
+- evidence: frontend/src/App.css:26 (ui)
+- last seen: 2026-10-31T14:48:19Z
+
+### L-016 - Measure contrast for decorative text too when a rule says every pair
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `ui` · harmful: 0
+- features: docker-and-redesign
+- evidence: frontend/src/App.css:79 (ui)
+- last seen: 2026-10-31T14:48:19Z
+
+### L-017 - Give a bar and the content below it the same box model so their edges line up
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `ui` · harmful: 0
+- features: docker-and-redesign
+- evidence: frontend/src/App.css:30 (ui)
+- last seen: 2026-10-31T14:48:19Z
+
+### L-018 - Add scroll margin to anchor targets
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `ui` · harmful: 0
+- features: docker-and-redesign
+- evidence: frontend/src/App.css:55 (ui)
+- last seen: 2026-10-31T14:48:19Z
+
+### L-019 - Set init true for Node containers so they stop on SIGTERM
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `docker` · harmful: 0
+- features: docker-and-redesign
+- evidence: docker-compose.yml:2 (docker)
+- last seen: 2026-10-31T14:48:19Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.
