@@ -10,7 +10,40 @@ The project has two small apps:
 - **Backend:** a Node service that scrapes CNN and exposes the articles as JSON.
 - **Frontend:** a React page that displays them.
 
-## Prerequisites
+## Docker
+
+Docker is the quickest way to run SportScrapper. It needs only Docker with Compose.
+
+You need:
+
+- [Docker](https://docs.docker.com/get-docker/) with Compose, which Docker Desktop includes
+- A connection to the internet, because the app reads CNN live
+
+Clone the repository, enter its folder, and start both apps:
+
+```bash
+git clone https://github.com/mcesarpl/sportScrapper.git
+cd sportScrapper
+docker compose up --build
+```
+
+Open <http://localhost:8080> in your browser.
+
+To stop the apps, press `Ctrl+C`. To stop them and remove their containers, run `docker compose down`.
+
+To use another timezone, set `TZ` before the command:
+
+```bash
+TZ=Europe/Lisbon docker compose up --build
+```
+
+In Docker, "today" follows `TZ`, and the default is `America/Sao_Paulo`.
+
+## Run without Docker
+
+Use these steps to develop the apps. The frontend reloads as you edit it.
+
+### Prerequisites
 
 - [Node.js](https://nodejs.org) 24.2 or newer
 - [pnpm](https://pnpm.io/installation) 11 or newer
@@ -23,7 +56,7 @@ node --version
 pnpm --version
 ```
 
-## Install
+### Install
 
 Clone the repository, enter its folder, and install each app's dependencies:
 
@@ -34,7 +67,7 @@ pnpm --dir backend install
 pnpm --dir frontend install
 ```
 
-## Launch
+### Launch
 
 The app needs both parts running, so use two terminals, both in the project folder.
 
@@ -80,18 +113,26 @@ function over 25 lines, except in test files, where `describe` blocks are long b
 
 ```text
 backend/
+  Dockerfile                      Builds the backend image
   server.js                       HTTP server and the /api/headlines route
   headlines.js                    Fetches the CNN page and builds the response
   parse-cards.js                  Scrapes articles and images out of the HTML
   dates.js                        Today, the 7-day range, filtering and sorting
+frontend/
+  Dockerfile                      Builds the frontend and serves it with nginx
+  nginx.conf                      Serves the page and passes /api/ to the backend
 frontend/src/
   App.jsx                         The page and its loading, empty and error messages
   hooks/useHeadlines.js           Requests the headlines from the backend
   group-by-day.js                 Groups articles by day, newest day first
   format-day.js                   Formats a date as a day heading
+  format-range.js                 Formats the date range shown in the pill
   components/DaySection.jsx       One day's heading and its articles
   components/ArticleCard.jsx      One headline
   components/ArticleImage.jsx     The image, or a placeholder when there is none
+  components/TopBar.jsx           The top bar with the name and the GitHub link
+  components/Hero.jsx             The title, description, date pill and See headlines button
+docker-compose.yml                Starts the backend and the frontend together
 .specs/                           Specifications the project was built from
 ```
 
@@ -129,4 +170,5 @@ If CNN can't be read, it returns HTTP 502 with `{ "error": "Could not load CNN S
 - **Videos and galleries are left out.** The app lists articles and live blogs only.
 - **It depends on CNN's page layout.** If CNN changes its HTML so no stories can be found, the page
   shows `Couldn't load headlines from CNN.` rather than an empty list.
-- **"Today" follows the computer running the backend**, using that computer's timezone.
+- **"Today" follows the computer running the backend**, using that computer's timezone. In Docker,
+  it follows `TZ` instead, and the default is `America/Sao_Paulo`.

@@ -220,7 +220,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T9: Update the README
+### T9: Update the README ✅
 
 **What**: Put a Docker section first with the prerequisite, command, address, how to stop and how to change `TZ`; move the current install and launch steps under a `Run without Docker` heading; update the prerequisites and project structure; add the Docker timezone note to the known limits.
 **Where**: `README.md`
