@@ -160,7 +160,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T6: Containerise the backend
+### T6: Containerise the backend ✅
 
 **What**: Create a Dockerfile on `node:24-alpine` that installs pnpm 11, installs production dependencies from the lockfile and runs `node server.js`, with a `backend/.dockerignore`.
 **Where**: `backend/Dockerfile`
