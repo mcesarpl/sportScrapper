@@ -318,7 +318,7 @@ Proof: walk - after `docker compose stop backend`, a reload showed `Couldn't loa
 The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** none
-**Dispatched:** Phase 1 worker (T1-T5)
+**Dispatched:** Phase 1 worker (T1-T5), returned and accepted by the manager at cca6dfa after 2 rounds of CSS fixes; Phase 2 worker (T6-T9)
 
 ---
 
