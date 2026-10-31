@@ -199,7 +199,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T8: Add the compose file
+### T8: Add the compose file ✅
 
 **What**: Create `docker-compose.yml` at the root with `backend` (no published ports, `TZ: ${TZ:-America/Sao_Paulo}`) and `frontend` (port `8080:80`, depends on `backend`).
 **Where**: `docker-compose.yml`
