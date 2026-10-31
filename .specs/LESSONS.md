@@ -128,6 +128,12 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: docker-compose.yml:2 (docker)
 - last seen: 2026-10-31T14:48:19Z
 
+### L-020 - List a style reference's signature effects as criteria before building
+- signal: `spec_deviation` · recurrence: 1 feature(s) · scope: `ui` · harmful: 0
+- features: docker-and-redesign
+- evidence: captures/style-reference.running.png (ui)
+- last seen: 2026-10-31T14:50:34Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

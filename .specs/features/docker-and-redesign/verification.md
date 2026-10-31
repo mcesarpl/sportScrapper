@@ -14,3 +14,4 @@
 | The top bar did not line up with the content | brand at 88.5 against title at 72.5 at 1280px, after a first fix left it 16px off | same box model as `main`, now 72.5 and 1193 on both | cca6dfa - C11 |
 | The first day heading touched the top edge after `See headlines` | heading at 0 | `scroll-margin-top`, now 24px | f148780 - C10 |
 | Stopping the backend took 11s | Node as PID 1 ignored SIGTERM, measured with `docker compose stop backend` | `init: true`, now about 0.23s | 7a5443d - C19 |
+| The title was flat white where the reference fades into pink | `captures/style-reference.running.png` against the capture, round 1 | vertical text gradient | 155f0a9 - C11 |

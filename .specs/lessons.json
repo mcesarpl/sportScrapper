@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 20,
+  "next_id": 21,
   "lessons": [
     {
       "id": "L-001",
@@ -346,6 +346,24 @@
       ],
       "created": "2026-10-31T14:48:19Z",
       "last_seen": "2026-10-31T14:48:19Z"
+    },
+    {
+      "id": "L-020",
+      "key": "spec_deviation::list a style reference s signature effects as criteria before building",
+      "text": "List a style reference's signature effects as criteria before building",
+      "signal": "spec_deviation",
+      "scope": "ui",
+      "status": "candidate",
+      "features": [
+        "docker-and-redesign"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "captures/style-reference.running.png (ui)"
+      ],
+      "created": "2026-10-31T14:50:34Z",
+      "last_seen": "2026-10-31T14:50:34Z"
     }
   ]
 }
