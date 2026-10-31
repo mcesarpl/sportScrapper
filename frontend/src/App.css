@@ -85,14 +85,20 @@ main {
 
 h1 {
   margin: 0 0 20px;
+  padding-bottom: 0.12em;
   font-size: clamp(40px, 9vw, 72px);
   font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.035em;
+  background: linear-gradient(180deg, var(--text) 45%, var(--link));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .cursor {
   color: var(--link);
+  -webkit-text-fill-color: var(--link);
 }
 
 .description {
