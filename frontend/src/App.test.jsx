@@ -163,3 +163,58 @@ it('shows top bar with the name and a GitHub link', async () => {
   expect(link.getAttribute('target')).toBe('_blank')
   expect(link.getAttribute('rel')).toBe('noreferrer')
 })
+
+it('shows page title with a cursor hidden from screen readers', async () => {
+  stubArticles([article])
+
+  const { container } = render(<App />)
+
+  await screen.findByText(article.title)
+  expect(container.querySelector('h1 .cursor').getAttribute('aria-hidden')).toBe('true')
+  expect(container.querySelector('h1').textContent).toBe("This Week's Sports Headlines_")
+})
+
+it('shows description', async () => {
+  stubArticles([article])
+
+  render(<App />)
+
+  expect(await screen.findByText('The last 7 days of CNN Sport, gathered in one place.')).toBeTruthy()
+})
+
+it('shows date pill', async () => {
+  stubArticles([article])
+
+  render(<App />)
+
+  expect(await screen.findByText('Oct 24 – Oct 30, 2026')).toBeTruthy()
+})
+
+it('hides date pill while loading', () => {
+  vi.stubGlobal('fetch', vi.fn().mockReturnValue(new Promise(() => {})))
+
+  render(<App />)
+
+  expect(screen.queryByText(/ – /)).toBeNull()
+})
+
+it('hides date pill after an error', async () => {
+  stubResponse({ error: 'Could not load CNN Sport' }, 502)
+
+  render(<App />)
+
+  expect(await screen.findByText("Couldn't load headlines from CNN.")).toBeTruthy()
+  expect(screen.queryByText(/ – /)).toBeNull()
+})
+
+it('see headlines points at the headlines', async () => {
+  stubArticles([article])
+
+  render(<App />)
+
+  await screen.findByText(article.title)
+  const link = screen.getByRole('link', { name: 'See headlines' })
+  expect(link.getAttribute('href')).toBe('#headlines')
+  const headlines = document.getElementById('headlines')
+  expect(headlines.contains(screen.getByRole('heading', { name: 'Friday, October 30, 2026', level: 2 }))).toBe(true)
+})

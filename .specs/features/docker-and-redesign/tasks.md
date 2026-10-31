@@ -120,7 +120,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T4: Add the hero
+### T4: Add the hero ✅
 
 **What**: Create `Hero`, taking `range` as a prop and showing the pill, the title with its `aria-hidden` cursor, the description and `See headlines` linking to `#headlines`. Render it in `App`, replacing the old `h1`, and put `id="headlines"` on the element holding the messages and day sections.
 **Where**: `frontend/src/components/Hero.jsx`
