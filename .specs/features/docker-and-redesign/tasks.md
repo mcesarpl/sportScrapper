@@ -140,7 +140,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T5: Apply the new look
+### T5: Apply the new look ✅
 
 **What**: Rewrite the stylesheet with the spec's palette as CSS variables on `:root`, the crimson glow, Inter, dark cards with a thin border and hover state, a pill matching the reference, and smooth scrolling that respects `prefers-reduced-motion`. Add `@fontsource-variable/inter` and import it in `src/main.jsx`.
 **Where**: `frontend/src/App.css`
