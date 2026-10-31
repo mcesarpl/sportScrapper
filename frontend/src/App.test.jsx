@@ -150,3 +150,16 @@ it('shows error message when the backend cannot be reached', async () => {
 
   expect(await screen.findByText("Couldn't load headlines from CNN.")).toBeTruthy()
 })
+
+it('shows top bar with the name and a GitHub link', async () => {
+  stubArticles([])
+
+  render(<App />)
+
+  await screen.findByText('No sports articles published this week yet.')
+  expect(screen.getByText('SportScrapper')).toBeTruthy()
+  const link = screen.getByRole('link', { name: 'View on GitHub' })
+  expect(link.getAttribute('href')).toBe('https://github.com/mcesarpl/sportScrapper')
+  expect(link.getAttribute('target')).toBe('_blank')
+  expect(link.getAttribute('rel')).toBe('noreferrer')
+})

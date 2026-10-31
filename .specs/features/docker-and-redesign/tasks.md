@@ -100,7 +100,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T3: Add the top bar
+### T3: Add the top bar ✅
 
 **What**: Create `TopBar`, showing `SportScrapper` and the `View on GitHub` link, and render it in `App`.
 **Where**: `frontend/src/components/TopBar.jsx`
