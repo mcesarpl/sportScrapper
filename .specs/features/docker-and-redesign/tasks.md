@@ -180,7 +180,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T7: Containerise the frontend
+### T7: Containerise the frontend ✅
 
 **What**: Create a multi-stage Dockerfile that builds with Node and serves `dist` from `nginx:alpine`, with a `frontend/.dockerignore` and a `frontend/nginx.conf` passing `/api/` to `http://backend:3333`.
 **Where**: `frontend/Dockerfile`
