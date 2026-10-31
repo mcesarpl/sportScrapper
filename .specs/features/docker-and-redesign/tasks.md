@@ -80,7 +80,7 @@ T6 → T7 → T8 → T9
 
 ---
 
-### T2: Expose the range from the hook
+### T2: Expose the range from the hook ✅
 
 **What**: Make `useHeadlines` return `range` (`{ from, to }`, or `null` until a response arrives) beside `articles` and `hasError`.
 **Where**: `frontend/src/hooks/useHeadlines.js`

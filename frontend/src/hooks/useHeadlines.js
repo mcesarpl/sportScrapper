@@ -8,13 +8,17 @@ async function fetchHeadlines() {
 
 export function useHeadlines() {
   const [articles, setArticles] = useState(null)
+  const [range, setRange] = useState(null)
   const [hasError, setHasError] = useState(false)
 
   useEffect(() => {
     fetchHeadlines()
-      .then((data) => setArticles(data.articles))
+      .then((data) => {
+        setArticles(data.articles)
+        setRange({ from: data.from, to: data.to })
+      })
       .catch(() => setHasError(true))
   }, [])
 
-  return { articles, hasError }
+  return { articles, range, hasError }
 }
