@@ -60,7 +60,7 @@ T6 → T7 → T8 → T9
 
 ## Task Breakdown
 
-### T1: Format the date range
+### T1: Format the date range ✅
 
 **What**: Export `formatRange(from, to)`, which returns `Oct 24 – Oct 30, 2026`, or `Dec 27, 2026 – Jan 2, 2027` when the years differ.
 **Where**: `frontend/src/format-range.js`
